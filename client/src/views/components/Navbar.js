@@ -2,7 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../../public/css/Navbar.css'
 import { AiOutlineHome, AiOutlineProfile, AiOutlinePoweroff } from 'react-icons/ai'
+import { useSelector } from 'react-redux';
 function Navbar() {
+    const user = useSelector((state) => 
+        state.auth.login.currentUser
+    )
     return (
         <div className='Navbar-wrapper'>
             <div className='Navbar-item1'>
@@ -20,7 +24,10 @@ function Navbar() {
                 </NavLink>
             </div>
             <div className='Navbar-item2'>
-                <div className='navlink-button navlink-profile'>
+                <div className='navlink-button navlink-avt'>
+                    Hello {user.username}
+                </div>
+                <div className='navlink-button navlink-logout'>
                     <AiOutlinePoweroff className='nav-icon out-icon'></AiOutlinePoweroff>
                     <div>Logout</div>
                 </div>

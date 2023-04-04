@@ -6,11 +6,15 @@
 .Navbar-item1 {
     display: flex;
     flex-direction: row;
-    width: 90%;
+    width: 80%;
 }
 .Navbar-item2 {
-    width: 10%;
+    width: 20%;
     cursor: pointer;
+}
+.Navbar-item2{
+    display: flex;
+    flex-direction: row;
 }
 .navlink {
     color: black;

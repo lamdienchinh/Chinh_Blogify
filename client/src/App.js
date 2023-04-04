@@ -11,7 +11,7 @@ function App() {
     <div className='wrap'>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login></Login>} />
+          <Route path="/" element={<Login></Login>} />
           <Route path="/register" element={<Register></Register>} />
           <Route path="/createpost" element={<BlogEditor></BlogEditor>} />
           <Route element={<UserLayout></UserLayout>}>

@@ -1,34 +1,20 @@
 import '../../public/css/Login.css'
 import React, { useState } from "react";
-// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-function Login(props) {
+import {login} from '../../redux/apiRequest';
+import { useDispatch } from 'react-redux';
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    console.log('run');
+    const dispatch =useDispatch();
     const navigate = useNavigate()
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // console.log('Username:', username);
-        // console.log('Password:', password);
-        // try {
-        //     let response = await axios.post('http://localhost:8080/api/user/login', {
-        //       username: username,
-        //       password: password,
-        //     });
-        //     console.log(response.data); // chuỗi token trả về từ server
-        //     let data=response.data.data;
-        //     let fullname=data.firstname + data.lastname
-        //     let user = {
-        //         username: fullname,
-        //         avatar: data.avatar
-        //     }
-        //     sessionStorage.setItem('user', JSON.stringify(user));
-        //     console.log(JSON.parse(sessionStorage.getItem('user')));
-        //   } catch (error) {
-        //     console.error(error);
-        //   }
-        navigate('/');
+        const newUser = {
+            username: username,
+            password: password
+        }
+        login(newUser, dispatch, navigate)
     };
     return (
         <div className='login'>
@@ -46,7 +32,7 @@ function Login(props) {
                                 <label>Password</label>
                             </div>
                             <button type="submit" className='login-button'>Log in</button>
-                            <div className="register">
+                            <div className="register-place">
                                 <p>Don't have an account <a href="/register">Register</a></p>
                             </div>
                         </form>
