@@ -3,12 +3,11 @@ const { Post, Comment } = require('../models/Post');
 const postController = {
     createPost: async (req, res) => {
         try {
-            const date = new Date()
             const newPost = new Post({
                 title: req.body.title,
                 content: req.body.content,
-                time: date,
-                author: req.body.userid
+                time: Date.now(),
+                author: req.user._id
             })
             const result = await newPost.save()
             res.status(200).json(result)
@@ -61,7 +60,31 @@ const postController = {
         catch (err) {
             return res.status(400).json("Update post failed")
         }
+    },
+    addComment: async (req, res) => {
+        try {
+            const postid = req.params.id
+            const time = Date.now()
+            const content = req.body.content
+            const userid = req.user._id
+            let comment = new Comment({
+                time: time,
+                content: content,
+                post: postid,
+                user: userid
+            })
+            const newcomment = await comment.save()
+            let commentid = newcomment._id
+            const newpost = await Post.findByIdAndUpdate(postid, {
+                $push: {
+                    comments: commentid
+                }
+            })
+            res.status(200).json(newcomment)
+        }
+        catch {
+            return res.status(400).json(err)
+        }
     }
-
 }
 module.exports = postController
