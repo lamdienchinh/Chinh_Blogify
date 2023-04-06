@@ -18,7 +18,7 @@ const postController = {
     },
     getAllPost: async (req, res) => {
         try {
-            const post = await Post.find()
+            const post = await Post.find().populate("author")
             res.status(200).json(post)
         }
         catch (err) {

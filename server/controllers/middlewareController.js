@@ -14,7 +14,7 @@ const middleware = {
             })
         }
         else {
-            return res.status(401).json("You're not authenticated")
+            return res.status(40).json("You're not authenticated")
         }
     },
     verifyTokenAndAdminAuth: (req, res, next) => {

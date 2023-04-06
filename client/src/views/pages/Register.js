@@ -19,7 +19,7 @@ const Register = () => {
             password: password,
             email: email
         }
-        // register(newUser, dispatch, navigate);
+        register(newUser, dispatch, navigate);
     };
     return (
         <div className='register'>

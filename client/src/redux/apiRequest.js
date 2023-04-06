@@ -1,6 +1,7 @@
 import axios from "axios"
 import { loginFailed, loginStart, loginSuccess, registerStart, registerSuccess, registerFailed } from "./authSlice"
 import { getUsersStart, getUsersFailed, getUsersSuccess } from "./userSlice"
+import { getPostsStart, getPostsSuccess, getPostsFailed, createPostStart, createPostSuccess, createPostFailed } from "./postSlice"
 export const login = async (user, dispatch, navigate) => {
     dispatch(loginStart())
     try {
@@ -35,3 +36,28 @@ export const getAllUsers = async (token, dispatch, axiosJWT) => {
         dispatch(getUsersFailed());
     }
 };
+
+export const getAllPosts = async (token, dispatch, axiosJWT) => {
+    dispatch(getPostsStart());
+    try {
+        const res = await axiosJWT.get("/v1/post", {
+            headers: { token: `Bearer ${token}` },
+        });
+        dispatch(getPostsSuccess(res.data));
+    } catch (err) {
+        dispatch(getPostsFailed());
+    }
+};
+
+export const createPost = async (token, dispatch, axiosJWT, newpost) => {
+    dispatch(createPostStart());
+    try {
+        const res = await axiosJWT.post("/v1/post", newpost, {
+            headers: { token: `Bearer ${token}` },
+        })
+        dispatch(createPostSuccess())
+    }
+    catch (err) {
+        dispatch(createPostFailed())
+    }
+}
