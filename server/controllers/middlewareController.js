@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const UserController = require('./userController')
 const middleware = {
     verifyToken: (req, res, next) => {
         const token = req.headers.token
@@ -11,10 +11,17 @@ const middleware = {
                 }
                 req.user = user;
                 next();
+                // Promise.resolve(UserController.getOne(user))
+                //     .then((check) => {
+                //         if (check) next();
+                //     })
+                //     .catch((err) => {
+                //         return res.status(404).json(err);
+                //     });
             })
         }
         else {
-            return res.status(40).json("You're not authenticated")
+            return res.status(401).json("You're not authenticated")
         }
     },
     verifyTokenAndAdminAuth: (req, res, next) => {
@@ -22,7 +29,7 @@ const middleware = {
             if (req.user.id == req.param.id || req.user.admin) {
                 next()
             }
-            else {  
+            else {
                 return res.status(403).json("You're not allow to do this")
             }
         }

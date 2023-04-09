@@ -12,7 +12,6 @@ const authController = {
                 email: req.body.email,
                 password: hashed
             })
-
             const user = await newUser.save();
             res.status(200).json(user)
         }
@@ -69,14 +68,14 @@ const authController = {
         // Take refresh token
         const refreshToken = req.cookies.refreshToken
         if (!refreshToken) return res.status(401).json("You're not authenticated");
-        if (!refreshTokens.includes(refreshToken)){
+        if (!refreshTokens.includes(refreshToken)) {
             return res.status(403).json("Refresh token is invalid")
         }
         jwt.verify(refreshToken, process.env.JWT_REFRESH_KEY, (err, user) => {
             if (err) {
                 console.log(err)
             }
-            refreshTokens = refreshTokens.filter((token)=>token!==refreshToken)
+            refreshTokens = refreshTokens.filter((token) => token !== refreshToken)
             const newAccessToken = authController.generateAccessToken(user)
             const newRefreshToken = authController.generateRefreshToken(user)
             refreshTokens.push(newRefreshToken)
@@ -89,9 +88,14 @@ const authController = {
         })
     },
     logout: async (req, res) => {
-        res.clearCookie("refreshToken");
-        refreshTokens = refreshTokens.filter(token => token !== req.cookies.refreshToken)
-        res.status(200).json("Logged out!")
+        try {
+            refreshTokens = refreshTokens.filter(token => token !== req.cookies.refreshToken)
+            res.clearCookie("refreshToken");
+            res.status(200).json('Log out')
+        }
+        catch (err) {
+            return res.status(500).json(err)
+        }
     }
 }
 module.exports = authController
