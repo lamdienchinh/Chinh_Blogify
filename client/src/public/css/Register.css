@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 .register{
-    margin: 0px 0px 0px 0px;
+    margin: 0px;
     padding: 0;
     font-family: 'poppins',sans-serif;
 }
@@ -15,6 +15,7 @@
     background-size: cover;
 }
 .form-box{
+    margin-top: 20px;
     position: relative;
     width: 40%;
     height: 90%;
@@ -25,7 +26,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 .form-value {
     width: 90%;
@@ -88,11 +88,14 @@ top: -5px;
     font-weight: 600;
     margin-bottom: 20px;
 }
+.sign-up:hover{
+    background-color: black;
+    color: white;
+}
 .register{
     font-size: .9em;
     color: #fff;
     text-align: center;
-    margin: 25px 0 10px;
 }
 .register p a{
     text-decoration: none;
@@ -105,4 +108,13 @@ top: -5px;
 .box-name {
     display: flex;
     flex-direction: row;
+}
+.return-login {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 20px;
+}
+.return-login:hover {
+    color: black;
 }

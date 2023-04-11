@@ -20,7 +20,7 @@ const Login = () => {
         <div className='login'>
             <section>
                 <div className="form-loginbox">
-                    <div className="form-value">
+                    <div className="form-login">
                         <form onSubmit={handleSubmit}>
                             <h2>Login</h2>
                             <div className="inputbox">

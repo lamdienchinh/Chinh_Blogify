@@ -3,7 +3,6 @@
 }
 .createpost-wrapper h1 {
     padding-left: 50px;
-
 }
 .createpost-btn {
     border-radius: 5px;
@@ -11,24 +10,40 @@
     min-height: 50px;
 }
 .createpost {
-    padding: 10px;
+    margin: 50px;
+    border-radius: 10px;
     display: grid;
+    background-color: aliceblue;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     grid-template-areas:
-    "item1 item1 item1 item1 item1"
-    "item2 item2 item2 item2 item2"
-    "item3 item3 item4 item5 item6"
-    "item7 item7 item7 item8 item8"
-    "item9 item9 item9 item9 item9"
-    "item10 item11 item12 item13 item14"
-    "item15 item15 item15 item15 item15"
+    "item1 item1 item2 item2"
+    "item3 item3 item4 item4"
+    "item5 item5 item6 item6"
+    "item7 item7 item7 item7"
+    "item8 item8 item8 item8"
+    "item9 item9 item10 item10"
+    "item11 item11 item12 item12"
     ;
 }
 .form-item {
     padding: 20px;
 }
 .form-item input {
+    margin-top: 5px;
     display: block;
     padding: 0px;
+    padding: 5px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgb(176, 176, 176);
+}
+.form-item select {
+    margin-top: 5px;
+    display: block;
+    padding: 5px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgb(176, 176, 176);
 }
 .item1 {
     grid-area: item1;
@@ -66,12 +81,22 @@
 .item12 {
     grid-area: item12;
 }
-.item13 {
-    grid-area: item13;
+.createpost-btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
 }
-.item14 {
-    grid-area: item14;
+.createpost-btn {
+    background-color: aliceblue;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 32px;
+    border: 0;
+    padding: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
-.item15 {
-    grid-area: item15;
+.createpost-btn:hover {
+    background-color: rgb(2, 2, 62);
+    color: white;
 }

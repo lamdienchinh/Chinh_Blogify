@@ -71,7 +71,7 @@ export const logout = async (token, dispatch, axiosJWT, navigate) => {
         // const logout = await axios.post('/v1/auth/logout', {
         //     withCredentials: true,
         // })
-        const logout = await axiosJWT.post('http://localhost:8000/v1/auth/logout', {
+        const logout = await axiosJWT.post('/v1/auth/logout', {
             headers: { token: `Bearer ${token}` },
         })
         dispatch(logoutSuccess())

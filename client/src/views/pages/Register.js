@@ -2,8 +2,9 @@ import '../../public/css/Register.css'
 import React, { useState } from "react";
 // import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {register} from '../../redux/apiRequest'
+import { register } from '../../redux/apiRequest'
 import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom"
 const Register = () => {
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
@@ -50,7 +51,10 @@ const Register = () => {
                                 <input type="password" onChange={(event) => setPassword(event.target.value)} />
                                 <label >Password</label>
                             </div>
-                            <button className="sign-up">Sign up</button>
+                            <div className="register-block-btns">
+                                <button type="submit" className="sign-up">Sign up</button>
+                            </div>
+                            <Link to="/" className="return-login"> Had an account</Link>
                         </form>
                     </div>
                 </div>

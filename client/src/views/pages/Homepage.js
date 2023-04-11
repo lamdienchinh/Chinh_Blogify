@@ -7,11 +7,12 @@ import { getAllPosts } from '../../redux/apiRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginSuccess } from '../../redux/authSlice';
-import { createAxios } from "../../createInstance"
+import { createAxios } from "../../createInstance";
+import ReactPaginate from 'react-paginate';
+
 const Homepage = () => {
     const user = useSelector((state) => state.auth.login?.currentUser)
     const blogs = useSelector((state) => state.posts.posts?.allPosts)
-    console.log(blogs)
     // const userlist = useSelector((state)=> state.users.users?.allUsers)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -25,7 +26,18 @@ const Homepage = () => {
         }
     }, [])
     const [inputsearch, setInputSearch] = useState("");
-
+    const [currentPage, setCurrentPage] = useState(0);
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+    const itemsPerPage = 10;
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentItems = blogs.slice(startIndex, endIndex);
+    console.log(currentItems)
+    console.log(blogs)
+    const totalPages = Math.ceil(blogs.length / itemsPerPage);
+    console.log(totalPages)
     return (
         <div className='home-wrapper'>
             <div className='search-wrapper'>
@@ -37,18 +49,20 @@ const Homepage = () => {
                 </div>
             </div>
             <div className='posts-wrapper'>
-                {console.log(blogs)}
-                <div className='post-list'>
-                    {
-                        blogs.map((post) => {
-                            return (
-                                <Post key={post._id} post={post}></Post>
-                            )
-                        })
-                    }
-                </div>
+                {currentItems.map(post => (
+                    <Post key={post._id} post={post}></Post>
+                ))}
             </div>
-        </div>
+            <div className="post-paginate">
+                <ReactPaginate
+                    pageCount={totalPages}
+                    onPageChange={handlePageChange}
+                    containerClassName={'pagination'}
+                    activeClassName={'active'}
+                />
+            </div>
+        </div >
+
     )
 }
 

@@ -10,6 +10,7 @@ function Post(props) {
                 </div>
                 <div className='post-user-name-time'>
                     <div className='post-user-name'>
+                        {props.post.title}
                         {/* {blog.author.username} */}
                     </div>
                     <div className='post-user-time'>

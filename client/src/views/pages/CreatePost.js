@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginSuccess } from '../../redux/authSlice';
 import { createPost } from '../../redux/apiRequest'
+import { provinces } from '../../public/js/index'
 const PostEditor = () => {
     const user = useSelector((state) => state.auth.login?.currentUser)
     const dispatch = useDispatch()
@@ -20,7 +21,8 @@ const PostEditor = () => {
             user_id: user._id
         }
         if (user?.accessToken) {
-            createPost(user?.accessToken, dispatch, axiosJWT, newpost)
+            console.log(newpost)
+            // createPost(user?.accessToken, dispatch, axiosJWT, newpost)
         }
     }
 
@@ -29,11 +31,11 @@ const PostEditor = () => {
             navigate("/")
         }
     }, [])
-
-    const [selectedPlace, setSelectedPlace] = useState(null);
-
-    const onPlaceSelected = (place) => {
-        setSelectedPlace(place);
+    const [selectedProvince, setSelectedProvince] = useState("");
+    const [phonenumber, setPhonenumber] = useState("");
+    const [summary, setSummary] = useState("")
+    const handleChange = (event) => {
+        setSelectedProvince(event.target.value);
     };
     return (
         <div className="createpost-wrapper">
@@ -57,7 +59,14 @@ const PostEditor = () => {
                     <label>
                         Địa điểm dạy
                     </label>
-                    <input type="text" className="location" />
+                    <select value={selectedProvince} onChange={handleChange}>
+                        <option value="">--Chọn tỉnh thành--</option>
+                        {provinces.map((province) => (
+                            <option key={province} value={province}>
+                                {province}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className="form-item item4">
                     <label>
@@ -73,61 +82,45 @@ const PostEditor = () => {
                 </div>
                 <div className="form-item item6">
                     <label>
-                        Giờ mỗi buổi
-                    </label>
-                    <input type="text" className="time" />
-                </div>
-                <div className="form-item item7">
-                    <label>
                         Môn học
                     </label>
                     <input type="text" className="subject" />
                 </div>
-                <div className="form-item item8"><label>
-                    Gender
+                <div className="form-item item7"><label>
+                    Giới tính học viên
                 </label>
                     <input type="text" className="gender" /></div>
-                <div className="form-item item9">
+                <div className="form-item item8">
                     <h1>Yêu cầu gia sư</h1>
                 </div>
-                <div className="form-item item10">
+                <div className="form-item item9">
                     <label>
                         Giới tính gia sư
                     </label>
                     <input type="text" className="tutor-gender" />
                 </div>
-                <div className="form-item item11">
-                    <label>
-                        Trình độ
-                    </label>
-                    <input type="text" className="level" />
-                </div>
-                <div className="form-item item12">
+                <div className="form-item item10">
                     <label>
                         Học phí (vnđ)
                     </label>
                     <input type="text" className="salary" />
                 </div>
-                <div className="form-item item13">
-                    <label>
-                        Trả theo
-                    </label>
-                    <input type="text" className="pay-time" />
-                </div>
-                <div className="form-item item14">
+                <div className="form-item item11">
                     <label>
                         Số buổi/tuần
                     </label>
                     <input type="text" className="class-sessions" />
                 </div>
-                <div className="form-item item15">
+                <div className="form-item item12">
                     <label>
                         Mô tả khác
                     </label>
                     <input type="text" className="differ-summary" />
                 </div>
             </form>
-            <Button className="createpost-btn" variant="primary" onClick={handleSave}>Tạo tìm kiếm</Button>
+            <div className="createpost-btn-wrapper">
+                <Button className="createpost-btn" variant="primary" onClick={handleSave}>Tạo tìm kiếm</Button>
+            </div>
         </div >
     )
 }
