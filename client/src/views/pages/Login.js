@@ -25,7 +25,7 @@ const Login = () => {
                             <h2>Login</h2>
                             <div className="inputbox">
                                 <input type="text" onChange={(event) => setUsername(event.target.value)} />
-                                <label>Email</label>
+                                <label>Username</label>
                             </div>
                             <div className="inputbox">
                                 <input type="password" onChange={(event) => setPassword(event.target.value)} />

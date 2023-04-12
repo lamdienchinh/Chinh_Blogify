@@ -32,6 +32,12 @@ function Navbar() {
                         <div>Tìm gia sư</div>
                     </div>
                 </NavLink>
+                <NavLink className={({ isActive, isPending }) => isPending ? "navlink" : isActive ? "navlink-selected" : "navlink"} to='/register-tutor' >
+                    <div className='navlink-button navlink-profile'>
+                        <AiOutlineProfile className='nav-icon profile-icon'></AiOutlineProfile>
+                        <div>Đăng ký làm gia sư</div>
+                    </div>
+                </NavLink>
             </div>
             <div className='Navbar-item2'>
                 <NavLink className={({ isActive, isPending }) => isPending ? "navlink" : isActive ? "navlink-selected" : "navlink"} to='/profile' >

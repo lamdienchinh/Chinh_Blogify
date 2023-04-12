@@ -1,0 +1,85 @@
+.registertutor-form {
+    box-shadow: 2px 2px 5px #888888;
+    margin: 20px;
+    padding: 20px;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-areas:
+    "h1 h1 h1 h1"
+    "item1 item2 item3 item4"
+    "item5 item5 item6 item6"
+    "item7 item7 item7 item7"
+    "h2 h2 h2 h2"
+    "item8 item8 item9 item9"
+    "item10 item10 item10 item10"
+    ;
+}
+.registertutoritem input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.reg1 {
+    grid-area: item1;
+}
+.reg2 {
+    grid-area: item2;
+}
+.reg3 {
+    grid-area: item3;
+}
+.reg4 {
+    grid-area: item4;
+}
+.reg5 {
+    grid-area: item5;
+}
+.reg6 {
+    grid-area: item6;
+}
+.reg7 {
+    grid-area: item7;
+}
+.reg8 {
+    grid-area: item8;
+}
+.reg9 {
+    grid-area: item9;
+}
+.reg10 {
+    grid-area: item10;
+}
+.registertutoritem select {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.reg11 {
+    grid-area: item11;
+}
+.res-h1 {
+    grid-area: h1;
+    font-size: 32px;
+    font-weight: 700;
+}
+.res-h2 {
+    grid-area: h2;
+    font-size: 32px;
+    font-weight: 700;
+}
+.reg-tutor-btn {
+    padding: 5px;
+    background-color: rgb(155, 192, 244);
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 5px;
+}
+.reg-tutor-btn:hover {
+    background-color: rgb(165, 161, 161);
+    color: white;
+}

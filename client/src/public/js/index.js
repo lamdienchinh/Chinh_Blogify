@@ -62,3 +62,9 @@ export const provinces = [
     'Vĩnh Phúc',
     'Yên Bái'
 ];
+export const list_subjects = [
+    { value: "math", label: "Math" },
+    { value: "english", label: "English" },
+    { value: "science", label: "Science" },
+    { value: "history", label: "History" }
+]

@@ -13,7 +13,7 @@
     margin: 50px;
     border-radius: 10px;
     display: grid;
-    background-color: aliceblue;
+    background-color: rgb(253, 253, 253);
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     grid-template-areas:
     "item1 item1 item2 item2"
@@ -88,7 +88,7 @@
     margin-bottom: 30px;
 }
 .createpost-btn {
-    background-color: aliceblue;
+    background-color: rgb(255, 255, 255);
     cursor: pointer;
     font-weight: 300;
     font-size: 32px;
