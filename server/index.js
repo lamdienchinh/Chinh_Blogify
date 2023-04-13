@@ -7,7 +7,7 @@ const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
 const bodyParser = require('body-parser')
 const postRoute = require('./routes/post')
-
+const tutorRoute = require('./routes/tutorpost');
 dotenv.config()
 const app = express();
 
@@ -22,6 +22,7 @@ app.use(express.json());
 app.use("/v1/post", postRoute)
 app.use("/v1/auth", authRoute)
 app.use("/v1/user", userRoute)
+app.use("/v1/tutor", tutorRoute)
 app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log(err);

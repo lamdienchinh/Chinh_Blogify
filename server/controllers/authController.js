@@ -10,7 +10,11 @@ const authController = {
             const newUser = await new User({
                 username: req.body.username,
                 email: req.body.email,
-                password: hashed
+                password: hashed,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                phonenumber: "",
+                dob: ""
             })
             const user = await newUser.save();
             res.status(200).json(user)

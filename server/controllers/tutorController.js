@@ -1,27 +1,32 @@
 const User = require('../models/User');
-const { Post} = require('../models/Post');
-const postController = {
+const { TutorPost } = require('../models/TutorPost');
+const { cloudinary } = require('../utils/index.js')
+
+const tutorController = {
     createPost: async (req, res) => {
         try {
-            const newPost = new Post({
+            const result = await cloudinary.uploader.upload(req.file.path);
+            const url = result.secure_url;
+            const newPost = new TutorPost({
+                fullname: req.body.fullname,
                 phonenumber: req.body.phonenumber,
-                differ: req.body.differ,
-                numsessions: req.body.numsessions,
-                datestart: req.body.datestart,
+                email: req.body.email,
+                gender: req.body.gender,
+                dob: req.body.dob,
+                address: req.body.address,
+                intro: req.body.intro,
+                job: req.body.job,
                 province: req.body.province,
-                salary: req.body.salary,
-                studentgender: req.body.studentgender,
-                studentnum: req.body.studentnum,
-                subject: req.body.subject,
-                summary: req.body.summary,
-                tutorgender: req.body.tutorgender,
+                subjects: req.body.subjects,
+                img: url,
+                time: Date.now(),
                 author: req.user._id
-            })
-            const result = await newPost.save()
-            res.status(200).json(result)
-        }
-        catch (err) {
-            return res.status(500).json(err)
+            });
+            const result2 = await newPost.save();
+            return res.status(200).json(result2);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json(err);
         }
     },
     getAllPost: async (req, res) => {
@@ -68,7 +73,8 @@ const postController = {
         catch (err) {
             return res.status(400).json("Update post failed")
         }
-    },
+    }
+    // ,
     // addComment: async (req, res) => {
     //     try {
     //         const postid = req.params.id
@@ -95,4 +101,4 @@ const postController = {
     //     }
     // }
 }
-module.exports = postController
+module.exports = tutorController

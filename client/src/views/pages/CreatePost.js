@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../public/css/CreatePost.css'
 import Button from 'react-bootstrap/Button'
-import Navbar from '../components/Navbar';
 import { createAxios } from '../../createInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -13,18 +12,6 @@ const PostEditor = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     let axiosJWT = createAxios(user, dispatch, loginSuccess);
-    // const handleSave = () => {
-    //     let newpost = {
-
-    //         time: Date.now(),
-    //         user_id: user._id
-    //     }
-    //     if (user?.accessToken) {
-    //         console.log(newpost)
-    //         // createPost(user?.accessToken, dispatch, axiosJWT, newpost)
-    //     }
-    // }
-
     useEffect(() => {
         if (!user) {
             navigate("/")
@@ -40,7 +27,7 @@ const PostEditor = () => {
 
     const [tutorgender, setTutorgender] = useState("");
     const [salary, setSalary] = useState("");
-    const [numsessions, setNumsessions] = useState("");
+    const [numsessions, setNumsessions] = useState(1);
     const [differ, setDiffer] = useState("");
     const handleChange = (event) => {
         setSelectedProvince(event.target.value);
@@ -52,14 +39,18 @@ const PostEditor = () => {
             studentgender: studentgender,
             province: selectedProvince,
             studentnum: studentnum,
-            date: date,
+            subject: subject,
+            datestart: date,
             summary: summary,
             tutorgender: tutorgender,
             salary: salary,
             numsessions: numsessions,
             differ: differ
         }
-        console.log(form)
+        if (user?.accessToken) {
+            console.log(form)
+            createPost(user?.accessToken, dispatch, axiosJWT, form)
+        }
     }
     return (
         <div className="createpost-wrapper">
@@ -75,7 +66,12 @@ const PostEditor = () => {
                     <label>
                         Giới tính học viên
                     </label>
-                    <input type="text" className="student-gender" onChange={(event) => setStudentgender(event.target.value)} />
+                    <select value={studentgender} onChange={(event) => setStudentgender(event.target.value)}>
+                        <option value="" disabled>Chọn giới tính</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Cả hai">Cả hai</option>
+                    </select>
                 </div>
                 <div className="form-item item3">
                     <label>
@@ -94,7 +90,7 @@ const PostEditor = () => {
                     <label>
                         Số học viên
                     </label>
-                    <input type="text" className="student-number" onChange={(event) => setStudentnum(event.target.value)} />
+                    <input type="number" className="student-number" onChange={(event) => setStudentnum(event.target.value)} />
                 </div>
                 <div className="form-item item5">
                     <label>
@@ -106,12 +102,19 @@ const PostEditor = () => {
                     <label>
                         Môn học
                     </label>
-                    <input type="text" className="subject" onChange={(event) => setSubject(event.target.value)} />
+                    <select value={subject} onChange={(event) => setSubject(event.target.value)}>
+                        <option value="" disabled>--Chọn môn học--</option>
+                        {list_subjects.map((item) => (
+                            <option key={item.label} value={item.label}>
+                                {item.label}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className="form-item item7"><label>
                     Tóm tắt yêu cầu
                 </label>
-                    <input type="text" className="summary" onChange={(event)=>setSummary(event.target.value)}/>
+                    <input type="text" className="summary" onChange={(event) => setSummary(event.target.value)} />
                 </div>
                 <div className="form-item item8">
                     <h1>Yêu cầu gia sư</h1>
@@ -120,25 +123,30 @@ const PostEditor = () => {
                     <label>
                         Giới tính gia sư
                     </label>
-                    <input type="text" className="tutor-gender" onChange={(event)=>setTutorgender(event.target.value)}/>
+                    <select value={tutorgender} onChange={(event) => setTutorgender(event.target.value)}>
+                        <option value="" disabled>Chọn giới tính</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Nam hoặc Nữ">Nam hoặc Nữ</option>
+                    </select>
                 </div>
                 <div className="form-item item10">
                     <label>
-                        Học phí (vnđ)
+                        Học phí (vnđ) / buổi
                     </label>
-                    <input type="text" className="salary" onChange={(event)=>setSalary(event.target.value)}/>
+                    <input type="text" className="salary" onChange={(event) => setSalary(event.target.value)} />
                 </div>
                 <div className="form-item item11">
                     <label>
                         Số buổi/tuần
                     </label>
-                    <input type="text" className="class-sessions" onChange={(event)=>setNumsessions(event.target.value)}/>
+                    <input type="number" className="class-sessions" onChange={(event) => setNumsessions(event.target.value)} />
                 </div>
                 <div className="form-item item12">
                     <label>
                         Mô tả khác
                     </label>
-                    <input type="text" className="differ-summary"onChange={(event)=>setDiffer(event.target.value)} />
+                    <input type="text" className="differ-summary" onChange={(event) => setDiffer(event.target.value)} />
                 </div>
             </form>
             <div className="createpost-btn-wrapper">

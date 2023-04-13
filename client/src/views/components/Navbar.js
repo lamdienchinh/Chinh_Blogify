@@ -23,7 +23,7 @@ function Navbar() {
                 <NavLink className={({ isActive, isPending }) => isPending ? "navlink" : isActive ? "navlink-selected" : "navlink"} to='/home' >
                     <div className='navlink-button navlink-home'>
                         <AiOutlineHome className='nav-icon home-icon'></AiOutlineHome>
-                        <div>Home</div>
+                        <div>Dành cho gia sư</div>
                     </div>
                 </NavLink>
                 <NavLink className={({ isActive, isPending }) => isPending ? "navlink" : isActive ? "navlink-selected" : "navlink"} to='/createpost' >
@@ -42,7 +42,7 @@ function Navbar() {
             <div className='Navbar-item2'>
                 <NavLink className={({ isActive, isPending }) => isPending ? "navlink" : isActive ? "navlink-selected" : "navlink"} to='/profile' >
                     <div className='navlink-button navlink-avt'>
-                        Hello {(user)?user.username:""}
+                        Hello {(user) ? user.username : ""}
                     </div>
                 </NavLink>
                 <div className='navlink-button navlink-logout' onClick={handleLogout}>

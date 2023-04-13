@@ -1,30 +1,52 @@
 const { mongoose, Schema } = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-    title: {
+    phonenumber: {
         type: String,
         require: true
     },
-    content: {
+    province: {
         type: Object,
         require: true
     },
-    time: {
-        type: Date,
+    salary: {
+        type: Number,
         require: true
     },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    numsession: {
+        type: Number    
+    },
+    studentgender: {
+        type: String
+    },
+    studentnum: {
+        type: Number
+    },
+    subject: {
+        type: String
+    },
+    summary: {
+        type: String,
+    },
+    tutorgender: {
+        type: String,
+    },
+    differ: {
+        type: String,
+    },
+    datestart: {
+        type: Date,
+    },
+    time: {
+        type: Date,
+    },
+    avt: {
+        type: String,
+    },
     author: { type: Schema.Types.ObjectId, ref: 'User' }
 }, { timestamps: true }
 );
 
-const commentSchema = new mongoose.Schema({
-    time: Date,
-    content: String,
-    post: { type: Schema.Types.ObjectId, ref: 'Post' },
-    user: { type: Schema.Types.ObjectId, ref: 'User' }
-});
-
 let Post = mongoose.model("Post", postSchema);
-let Comment = mongoose.model("Comment", commentSchema);
-module.exports = {Post, Comment}
+
+module.exports = { Post }

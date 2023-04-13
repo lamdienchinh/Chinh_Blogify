@@ -15,6 +15,8 @@ const Register = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const newUser = {
+            firstname: firstname,
+            lastname: lastname,
             username: username,
             password: password,
             email: email

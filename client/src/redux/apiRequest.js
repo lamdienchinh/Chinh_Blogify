@@ -4,6 +4,7 @@ import {
 } from "./authSlice"
 import { getUsersStart, getUsersFailed, getUsersSuccess } from "./userSlice"
 import { getPostsStart, getPostsSuccess, getPostsFailed, createPostStart, createPostSuccess, createPostFailed } from "./postSlice"
+import { getTutorsStart, getTutorsSuccess, getTutorsFailed, createTutorStart, createTutorSuccess, createTutorFailed } from "./tutorSlice"
 export const login = async (user, dispatch, navigate) => {
     dispatch(loginStart())
     try {
@@ -68,9 +69,6 @@ export const logout = async (token, dispatch, axiosJWT, navigate) => {
     dispatch(logoutStart())
     try {
         console.log(token)
-        // const logout = await axios.post('/v1/auth/logout', {
-        //     withCredentials: true,
-        // })
         const logout = await axiosJWT.post('/v1/auth/logout', {
             headers: { token: `Bearer ${token}` },
         })
@@ -78,5 +76,34 @@ export const logout = async (token, dispatch, axiosJWT, navigate) => {
         navigate('/')
     } catch (err) {
         dispatch(logoutFailed())
+    }
+}
+
+export const getTutorPosts = async (token, dispatch, axiosJWT) => {
+    dispatch(getTutorsStart());
+    try {
+        const res = await axiosJWT.get("/v1/tutor", {
+            headers: { token: `Bearer ${token}` },
+        });
+        dispatch(getTutorsSuccess(res.data));
+    } catch (err) {
+        dispatch(getTutorsFailed());
+    }
+};
+
+export const createTutorPost = async (token, dispatch, axiosJWT, newpost) => {
+    dispatch(createTutorStart());
+    try {
+        const res = await axiosJWT.post("/v1/tutor", newpost, {
+            headers: {
+                token: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            },
+        })
+        console.log(res)
+        dispatch(createTutorSuccess())
+    }
+    catch (err) {
+        dispatch(createTutorFailed())
     }
 }

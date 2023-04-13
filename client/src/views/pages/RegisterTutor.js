@@ -1,13 +1,23 @@
 import '../../public/css/Register.css'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createAxios } from '../../createInstance';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../../redux/apiRequest'
-import { useDispatch } from 'react-redux';
-import { Link } from "react-router-dom"
-import "../../public/css/RegisterTutor.css"
-import { provinces, list_subjects } from "../../public/js/index"
+import { loginSuccess } from '../../redux/authSlice';
+import { createTutorPost } from '../../redux/apiRequest'
+import { provinces, list_subjects } from '../../public/js/index'
 import Select from 'react-select'
+import "../../public/css/RegisterTutor.css"
 const RegisterTutor = () => {
+    const user = useSelector((state) => state.auth.login?.currentUser)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    let axiosJWT = createAxios(user, dispatch, loginSuccess);
+    useEffect(() => {
+        if (!user) {
+            navigate("/")
+        }
+    }, [])
     const [selectedProvince, setSelectedProvince] = useState("");
     const [fullname, setFullname] = useState("");
     const [phonenumber, setPhonenumber] = useState("");
@@ -18,6 +28,7 @@ const RegisterTutor = () => {
     const [gender, setGender] = useState("");
     const [job, setJob] = useState("");
     const [subjects, setSubjects] = useState([]);
+    const [file, setFile] = useState(null);
     function handleSubjects(selectedOptions) {
         setSubjects(selectedOptions);
     }
@@ -26,18 +37,38 @@ const RegisterTutor = () => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        const form = {
-            fullname: fullname,
+        let form = {
             phonenumber: phonenumber,
             email: email,
-            dob: dob,
-            address: address,
+            province: selectedProvince,
+            fullname: fullname,
+            subjects: subjects,
             summary: summary,
             gender: gender,
             job: job,
-            province: selectedProvince,
+            dob: dob,
+            address: address,
+            img: file
         }
-        console.log(form);
+        let formData = new FormData();
+        formData.append('phonenumber', form.phonenumber);
+        formData.append('email', form.email);
+        formData.append('province', form.province);
+        formData.append('fullname', form.fullname);
+        formData.append('subjects', form.subjects);
+        formData.append('summary', form.summary);
+        formData.append('gender', form.gender);
+        formData.append('job', form.job);
+        formData.append('dob', form.dob);
+        formData.append('address', form.address);
+        formData.append('img', form.img);
+        if (user?.accessToken) {
+            // console.log(formData)
+            // for (const [key, value] of formData.entries()) {
+            //     console.log(key, value);
+            // }
+            createTutorPost(user?.accessToken, dispatch, axiosJWT, formData)
+        }
     }
     return (
         <div className="registertutor">
@@ -128,6 +159,12 @@ const RegisterTutor = () => {
                         value={subjects}
                         onChange={handleSubjects}
                     />
+                </div>
+                <div className="registertutoritem reg11">
+                    <label>
+                        Ảnh
+                    </label>
+                    <input type='file' onChange={(event) => setFile(event.target.files[0])}></input>
                 </div>
                 <button className="reg-tutor-btn" type='submit'>Đăng ký</button>
             </form>
