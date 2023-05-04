@@ -17,7 +17,7 @@ function formattime(time) {
 function TutorPost(props) {
     let post = props.post
     let datestart = formattime(post.datestart)
-    let time = formattime(post.createAt)
+    let time = formattime(post.time)
     let dob = new Date(post.dob)
     dob = dob.getFullYear()
     return (

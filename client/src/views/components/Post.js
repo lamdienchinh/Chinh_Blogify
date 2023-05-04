@@ -18,6 +18,7 @@ function Post(props) {
     let post = props.post
     let datestart = formattime(post.datestart)
     let time = formattime(post.createAt)
+    console.log(post)
     return (
         <div className={`post-wrapper ${post._id}`}>
             <div>
@@ -33,7 +34,7 @@ function Post(props) {
                 Tóm tắt: {post.summary}
             </div>
             <div>
-                Thời gian tạo bài: {time}
+                Thời gian tạo bài: {post.time}
             </div>
             <div>
                 Ngày bắt đầu học: {datestart}
