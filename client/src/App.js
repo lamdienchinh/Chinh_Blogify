@@ -4,9 +4,10 @@ import Login from './views/pages/Login'
 import Register from './views/pages/Register'
 import UserLayout from './views/layouts/UserLayout'
 import BlogEditor from './views/pages/CreatePost';
-import Homepage from './views/pages/Homepage';
+import Homepage from './views/pages/ForTutor';
 import Profile from './views/pages/Profile';
 import RegisterTutor from './views/pages/RegisterTutor';
+import ParentPage from './views/pages/ForParent'
 function App() {
   return (
     <div className='wrap'>
@@ -18,6 +19,7 @@ function App() {
             <Route path="/createpost" element={<BlogEditor></BlogEditor>} />
             <Route path="/register-tutor" element={<RegisterTutor></RegisterTutor>} />
             <Route path="/home" element={<Homepage></Homepage>} />
+            <Route path="/for-parent" element={<ParentPage></ParentPage>} />
             <Route path="/profile" element={<Profile></Profile>} />
             <Route path="." element={<></>}></Route>
           </Route>

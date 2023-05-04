@@ -30,7 +30,7 @@ function Post(props) {
                 Học phí: {post.salary}
             </div>
             <div>
-                Tóm tắt {post.summary}
+                Tóm tắt: {post.summary}
             </div>
             <div>
                 Thời gian tạo bài: {time}

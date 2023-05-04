@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { loginSuccess } from '../../redux/authSlice';
 import { createPost } from '../../redux/apiRequest'
 import { provinces, list_subjects } from '../../public/js/index'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const PostEditor = () => {
     const user = useSelector((state) => state.auth.login?.currentUser)
     const dispatch = useDispatch()
@@ -32,7 +34,7 @@ const PostEditor = () => {
     const handleChange = (event) => {
         setSelectedProvince(event.target.value);
     };
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         let form = {
             phonenumber: phonenumber,
@@ -49,11 +51,13 @@ const PostEditor = () => {
         }
         if (user?.accessToken) {
             console.log(form)
-            createPost(user?.accessToken, dispatch, axiosJWT, form)
+            let b = await createPost(user?.accessToken, dispatch, axiosJWT, form)
+            toast("Bạn đã tạo bài thành công")
         }
     }
     return (
         <div className="createpost-wrapper">
+            <ToastContainer />
             <h1>Mô tả yêu cầu gia sư cần tìm</h1>
             <form className='createpost' onSubmit={handleSubmit}>
                 <div className="form-item item1">

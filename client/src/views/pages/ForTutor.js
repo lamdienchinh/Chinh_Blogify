@@ -13,6 +13,10 @@ import ReactPaginate from 'react-paginate';
 const Homepage = () => {
     const user = useSelector((state) => state.auth.login?.currentUser)
     const blogs = useSelector((state) => state.posts.posts?.allPosts)
+    let blog_list = [];
+    if (blogs) {
+        blog_list = blogs.slice().reverse()
+    }
     // const userlist = useSelector((state)=> state.users.users?.allUsers)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -25,7 +29,6 @@ const Homepage = () => {
             getAllPosts(user?.accessToken, dispatch, axiosJWT)
         }
     }, [])
-    const [inputsearch, setInputSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(0);
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
@@ -36,16 +39,13 @@ const Homepage = () => {
     let currentItems =[];
     let totalPages;
     if (blogs) {
-        currentItems = blogs.slice(startIndex, endIndex);
-        console.log(currentItems)
-        console.log(blogs)
-        totalPages = Math.ceil(blogs.length / itemsPerPage);
-        console.log(totalPages)
+        currentItems = blog_list.slice(startIndex, endIndex);
+        totalPages = Math.ceil(blog_list.length / itemsPerPage);
     }
     return (
         <div className='home-wrapper'>
             <div className='search-wrapper'>
-                <input className='search-input' onChange={(event) => setInputSearch(event.target.value)}></input>
+                <input className='search-input'></input>
                 <div className='search-btn-wrap'>
                     <button type='submit' className='search-btn'>
                         <FaSearch></FaSearch>

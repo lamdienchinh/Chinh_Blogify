@@ -38,7 +38,7 @@ function TutorPost(props) {
                 Tóm tắt bản thân: {post.summary}
             </div>
             <div>
-                Môn dạy học: {post.subject}
+                Môn dạy học: {post.subjects.map(subject => subject).join(', ')}
             </div>
             <div>
                 Giới tính: {post.gender}

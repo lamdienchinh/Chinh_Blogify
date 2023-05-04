@@ -8,6 +8,8 @@ import { createTutorPost } from '../../redux/apiRequest'
 import { provinces, list_subjects } from '../../public/js/index'
 import Select from 'react-select'
 import "../../public/css/RegisterTutor.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const RegisterTutor = () => {
     const user = useSelector((state) => state.auth.login?.currentUser)
     const dispatch = useDispatch()
@@ -35,14 +37,15 @@ const RegisterTutor = () => {
     const handleChange = (event) => {
         setSelectedProvince(event.target.value);
     };
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        let list_subject = subjects.map((item) => item.value);
         let form = {
             phonenumber: phonenumber,
             email: email,
             province: selectedProvince,
             fullname: fullname,
-            subjects: subjects,
+            subjects: list_subject,
             summary: summary,
             gender: gender,
             job: job,
@@ -63,15 +66,13 @@ const RegisterTutor = () => {
         formData.append('address', form.address);
         formData.append('img', form.img);
         if (user?.accessToken) {
-            // console.log(formData)
-            // for (const [key, value] of formData.entries()) {
-            //     console.log(key, value);
-            // }
-            createTutorPost(user?.accessToken, dispatch, axiosJWT, formData)
+            await createTutorPost(user?.accessToken, dispatch, axiosJWT, formData)
+            toast("Bạn đã tạo bài thành công")
         }
     }
     return (
         <div className="registertutor">
+            <ToastContainer />
             <form className="registertutor-form" onSubmit={handleSubmit}>
                 <div className="regis-tutor res-h1">
                     Thông tin cá nhân

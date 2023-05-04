@@ -63,8 +63,8 @@ export const provinces = [
     'Yên Bái'
 ];
 export const list_subjects = [
-    { value: "math", label: "Math" },
-    { value: "english", label: "English" },
-    { value: "science", label: "Science" },
-    { value: "history", label: "History" }
+    { value: "Math", label: "Math" },
+    { value: "English", label: "English" },
+    { value: "Science", label: "Science" },
+    { value: "History", label: "History" }
 ]

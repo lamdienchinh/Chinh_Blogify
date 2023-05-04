@@ -19,7 +19,7 @@ export const login = async (user, dispatch, navigate) => {
 export const register = async (user, dispatch, navigate) => {
     dispatch(registerStart())
     try {
-        const res = await axios.post("/v1/auth/register", user)
+        await axios.post("/v1/auth/register", user)
         dispatch(registerSuccess())
         navigate("/")
     }
@@ -58,7 +58,7 @@ export const createPost = async (token, dispatch, axiosJWT, newpost) => {
         const res = await axiosJWT.post("/v1/post", newpost, {
             headers: { token: `Bearer ${token}` },
         })
-        dispatch(createPostSuccess())
+        dispatch(createPostSuccess(res.data))
     }
     catch (err) {
         dispatch(createPostFailed())
@@ -69,7 +69,7 @@ export const logout = async (token, dispatch, axiosJWT, navigate) => {
     dispatch(logoutStart())
     try {
         console.log(token)
-        const logout = await axiosJWT.post('/v1/auth/logout', {
+        await axiosJWT.post('/v1/auth/logout', {
             headers: { token: `Bearer ${token}` },
         })
         dispatch(logoutSuccess())
