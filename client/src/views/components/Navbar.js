@@ -48,7 +48,10 @@ function Navbar() {
             <div className='Navbar-item2'>
                 <NavLink className={({ isActive, isPending }) => isPending ? "navlink" : isActive ? "navlink-selected" : "navlink"} to='/profile' >
                     <div className='navlink-button navlink-avt'>
-                        Hello {(user) ? user.username : ""}
+                        <div className="navbar_username">
+                            Hello {(user) ? user.username : ""}
+                        </div>
+                        <img className="navbar_userimg" src={user.img} />
                     </div>
                 </NavLink>
                 <div className='navlink-button navlink-logout' onClick={handleLogout}>

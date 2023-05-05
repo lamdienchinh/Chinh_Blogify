@@ -63,8 +63,11 @@ export const provinces = [
     'Yên Bái'
 ];
 export const list_subjects = [
-    { value: "Math", label: "Math" },
-    { value: "English", label: "English" },
-    { value: "Science", label: "Science" },
-    { value: "History", label: "History" }
+    { value: "Toán cấp 1", label: "Toán cấp 1" },
+    { value: "Toán cấp 2", label: "Toán cấp 2" },
+    { value: "Toán cấp 3", label: "Toán cấp 3" },
+    { value: "Tiếng Anh", label: "Tiếng Anh" },
+    { value: "Ngữ văn", label: "Ngữ văn" },
+    { value: "Tiếng Trung", label: "Tiếng Trung" },
+    { value: "Tin học", label: "Tin học" }
 ]

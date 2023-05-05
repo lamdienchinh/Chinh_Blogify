@@ -52,11 +52,41 @@ const authSlice = createSlice({
             state.login.isFetching = false
             state.login.error = true
         },
+        changeAvatarStart: (state)=>{
+            state.login.isFetching = true;
+        },
+        changeAvatarSuccess: (state,action) =>{
+            state.login.isFetching = false;
+            state.login.currentUser = {
+                ...state.login.currentUser,
+                ...action.payload
+            }
+        },
+        changeAvatarFailed: (state) => {
+            state.login.isFetching = false;
+            state.login.error = true;
+        },
+        changeInforStart: (state)=>{
+            state.login.isFetching = true;
+        },
+        changeInforSuccess: (state,action) =>{
+            state.login.isFetching = false;
+            state.login.currentUser = {
+                ...state.login.currentUser,
+                ...action.payload
+            }
+            console.log("Current", state.login.currentUser)
+        },
+        changeInforFailed: (state) => {
+            state.login.isFetching = false;
+            state.login.error = true;
+        },
     }
 })
 
 export const {
     loginStart, loginSuccess, loginFailed, registerStart, registerSuccess, registerFailed, logoutStart, logoutSuccess, logoutFailed
+    , changeAvatarStart, changeAvatarSuccess, changeAvatarFailed, changeInforStart, changeInforSuccess, changeInforFailed
 } = authSlice.actions;
 
 export default authSlice.reducer

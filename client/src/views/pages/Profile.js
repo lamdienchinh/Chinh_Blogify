@@ -4,37 +4,49 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {useSelector} from "react-redux"
 import { TextField, Button, Avatar, Input } from '@mui/material';
-// import {changeavatar} from '../../redux/apiRequest';
+import { createAxios } from '../../createInstance';
+import { loginSuccess } from '../../redux/authSlice';
+import { changeavatar, changeinfor, changepass } from "../../redux/apiRequest";
 function User() {
     const user = useSelector((state) => state.auth.login?.currentUser)
-    console.log(user)
-    const [firstname, setFirstname] = useState(user.firstname);
-    const [lastname, setLastname] = useState(user.lastname);
-    const [email, setEmail] = useState(user.email);
-    const [phonenumber, setPhonenumber] = useState(user.phone);
+    const [firstname, setFirstname] = useState(user?.firstname);
+    const [lastname, setLastname] = useState(user?.lastname);
+    const [email, setEmail] = useState(user?.email);
+    const [phonenumber, setPhonenumber] = useState(user?.phonenumber);
     const [oldpassword, setOldpassword] = useState('');
     const [newpassword, setNewpassword] = useState('');
-    const [avatar, setAvatar] = useState(user.avatar);
-    const [avatarchange, setAvatarchange] = useState(user.avatar);
+    const [avatar, setAvatar] = useState(user?.img);
+    const [avatarchange, setAvatarchange] = useState(user?.img);
     const form1Ref = useRef(null);
     const form2Ref = useRef(null);
     const form3Ref = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    let axiosJWT = createAxios(user, dispatch, loginSuccess);
     const handleSubmit1 = async (event) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append("avt",avatar);
-        console.log("User", user)
-        // changeavatar(formData, dispatch, user.data.id);
+        formData.append("img",avatar);
+        console.log("img", avatar)
+        changeavatar(user?.accessToken, dispatch, axiosJWT, formData);
     };
     const handleSubmit2 = async (event) => {
         event.preventDefault();
-        const formData = new FormData();
+        let data = {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            phonenumber: phonenumber
+        }
+        changeinfor(user?.accessToken, dispatch, axiosJWT, data);
     };
     const handleSubmit3 = async (event) => {
         event.preventDefault();
-        const formData = new FormData();
+        let data = {
+            oldpass: oldpassword,
+            newpass: newpassword
+        }
+        changepass(user?.accessToken, dispatch, axiosJWT, data)
     };
     const handleFileChange = async (event) => {
         event.preventDefault();
